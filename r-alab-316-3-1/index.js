@@ -32,7 +32,7 @@ var menuLinks = [
 // #3.16.1.1 Getting started
 const mainEl = document.querySelector("main");
 mainEl.style.backgroundColor = "var(--main-bg)";
-mainEl.innerHTML = `<h1>DOM Manipulation</h1>.`;
+mainEl.innerHTML = `<h1>DOM Manipulation</h1>`;
 mainEl.classList.add("flex-ctr");
 
 // #316.1.2 create menu bar
@@ -66,9 +66,17 @@ subMenuEl.addEventListener("click", (e) => {
 
   // return if clicked element is not an anchor
   if (e.target.tagName !== "A") return;
-  //   print it out to check if it's working
+  //  print it out to check if it's working
   console.log(e.target.textContent);
-  // set the {topMenuEl} top property to
+  // set the {topMenuEl} top property to 0%
+  subMenuEl.style.top = "0";
+  // remove the {active} class for each {topMenuLinks}
+  topMenuLinks.forEach((link) => {
+    link.classList.remove("active");
+  });
+  // update the content of {mainEl}, within <h1> to <a> element
+  // clicked within {subMenuEl}
+  mainEl.innerHTML = `<h1>${e.target.textContent}</h1>`;
 });
 
 // #316.3.4 adding menu interaction
@@ -84,6 +92,10 @@ topMenuEl.addEventListener("click", (e) => {
   topMenuLinks.forEach((link) => {
     if (link === e.target) {
       link.classList.toggle("active");
+      // #316.3.5 If the ABOUT link is clicked, an <h1>About</h1> should be displayed.
+      if (e.target.textContent === "about") {
+        mainEl.innerHTML = `<h1>About</h1>`;
+      }
     } else {
       link.classList.remove("active");
     }
